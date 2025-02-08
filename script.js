@@ -36,9 +36,10 @@ const getSum = () => {
     totalRow.id = "total-row";
 
     const totalCell = totalRow.insertCell();
-    totalCell.colSpan = table.rows[0].cells.length;
-    totalCell.style.textAlign = "right";
-    totalCell.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+totalCell.colSpan = table.rows[0].cells.length;
+totalCell.style.textAlign = "right";
+totalRow.id = "ans"; // ID set on the *row*, not the cell
+totalCell.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
   
 };
 
