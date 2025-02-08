@@ -9,34 +9,35 @@ const getSum = () => {
     let totalPrice = 0;
 
     prices.forEach(priceElement => {
-        const price = parseFloat(priceElement.textContent); // Parse price as float
-        if (!isNaN(price)) { // Check if parsed value is a valid number
+        const priceText = priceElement.textContent;
+        const price = parseFloat(priceText.replace(/[^0-9.]/g, '')); // Extract numbers and .
+        
+        if (!isNaN(price)) {
             totalPrice += price;
         } else {
-            console.error("Invalid price:", priceElement.textContent); // Handle invalid price
-            alert("Some prices are not valid numbers. Please correct and try again.")
-            return; //stop further calculation
+            console.error("Invalid price:", priceText);
+            alert("Some prices are not valid numbers. Please correct and try again.");
+            return; // Stop further calculation
         }
     });
 
-    const table = document.querySelector('table'); // Assumes there's only one table
+    const table = document.querySelector('table');
     if (!table) {
         console.error("Table not found!");
         return;
     }
 
-    // Check if the total row already exists to avoid appending multiple times
     let totalRow = table.querySelector('#total-row');
     if (totalRow) {
-        totalRow.remove(); // Remove old total row if present
+        totalRow.remove();
     }
 
-    totalRow = table.insertRow(); // Insert at the end by default
-    totalRow.id = "total-row"; //Give it an ID to find it later
+    totalRow = table.insertRow();
+    totalRow.id = "total-row";
 
     const totalCell = totalRow.insertCell();
-    totalCell.colSpan = table.rows[0].cells.length; // Span across all columns
-    totalCell.style.textAlign = "right"; //Align to right
+    totalCell.colSpan = table.rows[0].cells.length;
+    totalCell.style.textAlign = "right";
     totalCell.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
   
 };
